@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Your ingredient: Bread</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #faf7ff;
+      --card: #ffffff;
+      --text: #1f2033;
+      --muted: #646480;
+      --accent: #7b5cff;
+      --accent-2: #32d583;
+      --danger: #ef4444;
+      --shadow: 0 10px 30px rgba(31,32,51,.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 10% -10%, #efe9ff 0, transparent 60%),
+                  radial-gradient(800px 500px at 110% 10%, #e6fff1 0, transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      display: grid;
+      min-height: 100svh;
+      place-items: center;
+      padding: 28px;
+    }
+    .card {
+      width: min(720px, 100%);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3.5vw, 28px);
+    }
+    .topline {
+      display: grid;
+      gap: 16px;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+    }
+    .title {
+      margin: 0;
+      font-weight: 800;
+      font-size: clamp(20px, 3.2vw, 28px);
+      letter-spacing: .2px;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2.4vw, 16px);
+    }
+    .image-wrap {
+      margin: 8px 0 14px;
+      display: grid;
+      place-items: center;
+    }
+    .image-wrap svg {
+      width: min(280px, 70%);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.08));
+    }
+    .question {
+      margin-top: 12px;
+      font-size: clamp(16px, 2.6vw, 18px);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+    .options {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      background: #fbfbff;
+      border: 1px solid #ecebfd;
+      border-radius: 12px;
+      padding: 10px 12px;
+      transition: border-color .15s ease;
+      cursor: pointer;
+    }
+    .option:hover { border-color: #d8d6fb; }
+    .controls {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      font-weight: 700;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: transform .02s ease-in, box-shadow .2s ease;
+    }
+    .btn-check {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 6px 20px rgba(123,92,255,.25);
+    }
+    .btn-check:active { transform: translateY(1px); }
+    .btn-add {
+      background: var(--accent-2);
+      color: #063;
+      display: none;
+      box-shadow: 0 6px 20px rgba(50,213,131,.22);
+    }
+    .feedback {
+      margin-top: 10px;
+      font-weight: 700;
+      display: none;
+    }
+    .feedback.ok { color: var(--accent-2); }
+    .feedback.no { color: var(--danger); }
+    .sr-only {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap; border: 0; padding: 0; margin: -1px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="ingrTitle">
+    <section class="topline">
+      <h1 id="ingrTitle" class="title"><strong>Your ingredient is bread</strong></h1>
+      <p class="subtitle">Answer the question correctly to add this ingredient to your dish :)</p>
+
+      <div class="image-wrap" aria-hidden="true">
+        <!-- Inline SVG: bread slice -->
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="crust" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#C68642"/>
+              <stop offset="1" stop-color="#8B5A2B"/>
+            </linearGradient>
+            <linearGradient id="crumb" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#FFF1D0"/>
+              <stop offset="1" stop-color="#F6DDAE"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 70c0-18 22-34 56-34h64c34 0 56 16 56 34 0 9-6 18-16 22v92c0 18-16 32-36 32H92c-20 0-36-14-36-32V92c-10-4-16-13-16-22z" fill="url(#crumb)"/>
+          <path d="M40 70c0-18 22-34 56-34h64c34 0 56 16 56 34 0 9-6 18-16 22v10c-10 6-26 10-44 10H100c-18 0-34-4-44-10V92c-10-4-16-13-16-22z" fill="url(#crust)" opacity=".55"/>
+          <circle cx="104" cy="124" r="6" fill="#E5C79B"/>
+          <circle cx="144" cy="146" r="5" fill="#E5C79B"/>
+          <circle cx="122" cy="168" r="7" fill="#E5C79B"/>
+          <path d="M76 96c18 8 34 10 52 10s34-2 52-10" fill="none" stroke="#8B5A2B" stroke-opacity=".35" stroke-width="5"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="quiz" aria-labelledby="q1label">
+      <p id="q1label" class="question">
+        “A loaf of bread weighs 500 grams and has 20 slices. How many grams are in one slice of bread?”
+      </p>
+
+      <form class="options" id="quizForm">
+        <!-- Correct answer is 25 g -->
+        <label class="option">
+          <input type="radio" name="ans" value="20" aria-labelledby="opt1">
+          <span id="opt1">20 g</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="ans" value="25" data-correct="true" aria-labelledby="opt2">
+          <span id="opt2">25 g</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="ans" value="30" aria-labelledby="opt3">
+          <span id="opt3">30 g</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="ans" value="50" aria-labelledby="opt4">
+          <span id="opt4">50 g</span>
+        </label>
+
+        <div class="controls">
+          <button type="button" class="btn-check" id="checkBtn">Check answer</button>
+          <button type="button" class="btn-add" id="addBtn">Add Bread to Dish ✓</button>
+        </div>
+
+        <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+        <span class="sr-only" id="resultText"></span>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Simple quiz logic
+    const form = document.getElementById('quizForm');
+    const checkBtn = document.getElementById('checkBtn');
+    const addBtn = document.getElementById('addBtn');
+    const feedback = document.getElementById('feedback');
+
+    // Persist success for this ingredient
+    const KEY = 'bread_added';
+
+    function getSelectedInput() {
+      return form.querySelector('input[name="ans"]:checked');
+    }
+
+    function handleCheck() {
+      const choice = getSelectedInput();
+      if (!choice) {
+        feedback.textContent = 'Pick an option first 🙂';
+        feedback.className = 'feedback no';
+        feedback.style.display = 'block';
+        return;
+      }
+      const isCorrect = choice.hasAttribute('data-correct');
+      if (isCorrect) {
+        feedback.textContent = 'Correct! One slice weighs 25 grams.';
+        feedback.className = 'feedback ok';
+        feedback.style.display = 'block';
+        addBtn.style.display = 'inline-block';
+        form.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+      } else {
+        feedback.textContent = 'Not quite. Try again!';
+        feedback.className = 'feedback no';
+        feedback.style.display = 'block';
+      }
+    }
+
+    function handleAdd() {
+      try { localStorage.setItem(KEY, 'true'); } catch(e) {}
+      addBtn.textContent = 'Added ✓';
+      addBtn.disabled = true;
+      addBtn.style.opacity = .85;
+      // window.postMessage({ingredient: 'bread', added: true}, '*'); // optional communication
+    }
+
+    checkBtn.addEventListener('click', handleCheck);
+    addBtn.addEventListener('click', handleAdd);
+
+    // Reflect prior success if any
+    try {
+      if (localStorage.getItem(KEY) === 'true') {
+        addBtn.textContent = 'Already Added ✓';
+        addBtn.disabled = true;
+        addBtn.style.display = 'inline-block';
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>
